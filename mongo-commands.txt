@@ -20,25 +20,26 @@ db.createUser({
 });
 
 // create collection
-db.createCollection('blogs');
+db.createCollection('posts');
 db.createCollection('categories');
 show collections;
 
 // add records
-db.users.insert({
-    "fullname": "John Doe",
-    "email": "johndoe@gmail.com",
-    "username": "johndoe",
-    "password": "johndoe"
-    
+db.posts.insert({
+    "title": "Post1",
+    "category": "Tech",
+    "author": "Vaibhav Desai",
+    "body": "Lorem",
+    "date": ISODate()
 });
 
-db.users.insert({
-    "fullname": "Jane Doe",
-    "email": "janedoe@gmail.com",
-    "username": "janedoe",
-    "password": "janedoe"
+db.posts.insert({
+    "title": "Post2",
+    "category": "Food",
+    "author": "Vaibhav Desai",
+    "body": "Lorem",
+    "date": ISODate()
 });
 
-db.users.find();
-db.users.find().pretty();
+db.posts.find();
+db.posts.find().pretty();

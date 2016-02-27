@@ -5,18 +5,19 @@ var logger = require('morgan');
 var http = require('http');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var multer = require('multer');
 var flash = require('connect-flash');
 var expressMessages = require('express-messages');
+var moment = require('moment');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var posts = require('./routes/posts');
+var categories = require('./routes/categories');
 
 var app = express();
+app.locals.moment = moment;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,10 +43,6 @@ app.use(session({
     saveUninitialized: true,
     resave: true
 }));
-
-// passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 // validator
 app.use(expressValidator({
@@ -75,15 +72,9 @@ app.use(function (req, res, next) {
     next();
 });
 
-// make user session data available in all views
-// doing this avoids passing the user data in all views explictly in render function
-app.get('*', function (req, res, next) {
-    res.locals.user = req.user;
-    next();
-});
-
 app.use('/', index);
-app.use('/users', users);
+app.use('/posts', posts);
+app.use('/categories', categories);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    
+    .well
+        p This is a NodeJS app that demonstrates a blog application
+        p No user login functionality implemented
+        p Anyone can create any articles (freedom of speech?)
+    
+    div.content
+        if posts
+            each post in posts
+                .post
+                    h1 
+                        a(href='/posts/#{post._id}') #{post.title}
+                    p.meta Created in #{post.category} by #{post.author} on #{moment(post.date).format('MM-DD-YYYY')} 
+                    p #{post.body}
+                    a.btn.btn-info(href='/posts/#{post._id}') Read More
+        else
+            p.no-posts No posts found to display

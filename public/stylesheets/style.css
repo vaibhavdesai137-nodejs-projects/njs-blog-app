@@ -2,12 +2,37 @@ body {
     margin-top: 50px;
 }
 
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 50px;
+    height: 50px;
+    padding-top: 0;
+}
+
+.logo {
+    width: 200px;
+    height: 50px;
+}
+
+.post {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 20px;
+}
+
+.meta {
+    border: 1px solid #ccc;
+    background: #ccc;
+    padding: 10px;
+}
+
 .errors {
     list-style: none;
     margin-left: 0;
 }
 
-ul.success li, ul.info li, ul.error li {
+ul.success li,
+ul.info li,
+ul.error li {
     margin: 20px 0 20px 0;
     padding: 15px;
     list-style: none;

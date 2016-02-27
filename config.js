@@ -16,7 +16,7 @@ var configs = {
 }
 
 // change this heroku deployment
-var currentEnv = "heroku";
+var currentEnv = "dev";
 myconfig = configs[currentEnv];
 
 console.log('Current env: ' + currentEnv);
