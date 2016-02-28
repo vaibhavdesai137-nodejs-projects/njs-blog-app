@@ -40,11 +40,9 @@ router.post('/add', function (req, res, next) {
 
             if (category) {
                 req.flash('error', 'Category already exists');
-                res.render('addcategory', {
-                    title: 'Add Category',
-                    errors: errors,
-                    categoryName: categoryName
-                });
+                res.location('/categories/add');
+                res.redirect('/categories/add');
+                return;
             }
 
             // create new category
