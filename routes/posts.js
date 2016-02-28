@@ -52,14 +52,14 @@ router.post('/add', function (req, res, next) {
     // check if user submitted a post image
     if (postImage) {
         console.log("Uploading image...");
-        var postImageOrigName = req.files.postimage.originalname;
-        var postImageName = req.files.postimage.name;
-        var postImageMimeType = req.files.postimage.mimetype;
-        var postImagePath = req.files.postimage.path;
-        var postImageSize = req.files.postimage.size;
-        var postImageExt = req.files.postimage.extension;
+        var postImageOrigName = req.files.postImage.originalname;
+        var postImageName = req.files.postImage.name;
+        var postImageMimeType = req.files.postImage.mimetype;
+        var postImagePath = req.files.postImage.path;
+        var postImageSize = req.files.postImage.size;
+        var postImageExt = req.files.postImage.extension;
     } else {
-        var postImageName = 'default-image.png';
+        var postImageName = 'default-image.jpg';
     }
 
     // Validators
@@ -86,7 +86,8 @@ router.post('/add', function (req, res, next) {
             author: postAuthor,
             title: postTitle,
             category: postCategory,
-            content: postContent
+            content: postContent,
+            imageName: postImageName
         });
 
         Post.create(newPost, function (err, post) {

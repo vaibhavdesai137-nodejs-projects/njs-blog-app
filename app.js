@@ -20,6 +20,17 @@ var categories = require('./routes/categories');
 var app = express();
 app.locals.moment = moment;
 
+// Helper to reduce text lenths
+// available on ui pages
+app.locals.truncateText = function (text, length) {
+
+    if (text.length <= length) {
+        return text;
+    }
+
+    return text.substring(0, length) + '  ...  ';
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

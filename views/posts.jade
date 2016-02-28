@@ -20,7 +20,10 @@ block content
                     h1 
                         a(href='/posts/show/#{post._id}') #{post.title}
                     p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
-                    p #{post.content}
-                    a.btn.btn-info(href='/posts/show/#{post._id}') Read More
+                    br
+                    img.allpostsimg.center(src='/images/uploads/#{post.imageName}')
+                    br
+                    != truncateText(post.content, 400)
+                    a(href='/posts/show/#{post._id}') Read More
         else
             p.no-posts No posts found to display

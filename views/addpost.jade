@@ -33,10 +33,14 @@ block content
             .col-md-6
                 .form-group
                     label Post Content
-                    textarea.form-control(name='postContent', rows='10') #{postContent}
+                    textarea.form-control(name='postContent', id='postContent', rows='10') #{postContent}
         .row
             .col-md-3
                 .form-group
                     label Post Image
                     input.form-control(type='file', name='postImage')
         button.btn.btn-info(type='submit') Save
+
+    script(src='/ckeditor/ckeditor.js')
+    script
+        | CKEDITOR.replace('postContent');

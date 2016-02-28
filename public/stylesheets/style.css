@@ -19,6 +19,21 @@ body {
     padding-bottom: 20px;
 }
 
+img.allpostsimg {
+    width: 20%;
+    height: 20%
+}
+
+img.singlepostimg {
+    width: 50%;
+    height: 50%
+}
+
+img.center {
+    display: block;
+    margin: 0 auto;
+}
+
 .meta {
     border: 1px solid #ccc;
     background: #ccc;

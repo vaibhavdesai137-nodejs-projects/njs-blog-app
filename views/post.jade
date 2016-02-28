@@ -10,6 +10,9 @@ block content
             .post
                 h1 #{post.title}
                 p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
-                p #{post.content}
+                br
+                img.singlepostimg.center(src='/images/uploads/#{post.imageName}')
+                br
+                != post.content
         else
             p.no-posts Sorry, requested post is no longer available

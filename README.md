@@ -15,3 +15,4 @@
 * MongoDB with Mongoose
 * Uploading files with Multer
 * Date Formatting using Moment
+* CKEditor

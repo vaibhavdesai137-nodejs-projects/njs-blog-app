@@ -8,7 +8,8 @@ var postSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    imageName: String 
 });
 
 var Post = mongoose.model('posts', postSchema);
