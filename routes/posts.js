@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('./../models/Post');
+var Post = require('./../models/Models').Post;
+var Category = require('./../models/Models').Category;
 
 // get all posts
 router.get('/', function (req, res, next) {
@@ -15,7 +16,7 @@ router.get('/', function (req, res, next) {
 
 // get a aprticular post
 router.get('/show/:id', function (req, res, next) {
-    var postOid = req.param.id;
+    var postOid = req.params.id;
     Post.getById(postOid, function (err, post) {
         if (err) throw err;
         res.render('post', {
@@ -26,14 +27,21 @@ router.get('/show/:id', function (req, res, next) {
 
 // show addpost page
 router.get('/add', function (req, res, next) {
-    res.render('addpost', {
-        title: 'Add Post'
+
+    Category.getAll(function (err, categories) {
+
+        if (err) throw err;
+
+        res.render('addpost', {
+            title: 'Add Post',
+            categories: categories
+        });
     });
 });
 
 // save a new post
 router.post('/add', function (req, res, next) {
-    
+
     var postAuthor = req.body.postAuthor;
     var postTitle = req.body.postTitle;
     var postCategory = req.body.postCategory;
@@ -58,7 +66,7 @@ router.post('/add', function (req, res, next) {
     req.checkBody('postTitle', 'Post Title field is required').notEmpty();
     req.checkBody('postCategory', 'Post Category field is required').notEmpty();
     req.checkBody('postContent', 'Post Content is required').notEmpty();
-    
+
     // Error checking
     var errors = req.validationErrors();
     if (errors) {

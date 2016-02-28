@@ -2,6 +2,9 @@ extends layout
 
 block content
     
+    br
+    br
+    
     .well
         ul 
             li NodeJS Blog App
@@ -15,7 +18,7 @@ block content
                 .post
                     h1 
                         a(href='/posts/show/#{post._id}') #{post.title}
-                    p.meta Created in category '#{post.category}' by '#{post.author}' on '#{moment(post.date).format('MM-DD-YYYY')}'
+                    p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
                     p #{post.content}
                     a.btn.btn-info(href='/posts/show/#{post._id}') Read More
         else

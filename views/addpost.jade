@@ -27,8 +27,8 @@ block content
                     label Post Category
                     select.form-control(name='postCategory')
                         option(name='default', value='') Select a category
-                        option(name='Foo', value='Foo') Foo
-                        option(name='Bar', value='Bar') Bar
+                        each category in categories
+                            option(name='#{category.name}') #{category.name}
         .row
             .col-md-6
                 .form-group

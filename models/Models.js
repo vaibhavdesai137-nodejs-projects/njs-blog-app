@@ -11,8 +11,8 @@ mongoose.connect(mongoUri, function (err) {
     console.log('Successfully connected');
 });
 
-// our schema
-var schema = new mongoose.Schema({
+// our schemas
+var postSchema = new mongoose.Schema({
     author: String,
     title: String,
     category: String,
@@ -23,12 +23,17 @@ var schema = new mongoose.Schema({
     }
 });
 
-var Post = mongoose.model('posts', schema);
+var categorySchema = new mongoose.Schema({
+    name: String
+});
 
+var Post = mongoose.model('posts', postSchema);
+var Category = mongoose.model('categories', categorySchema);
+
+// All Post methods
 Post.create = function (newPost, callback) {
-    console.log("NEW: " + JSON.stringify(newPost));
     newPost.save(callback);
-}
+};
 
 Post.getAll = function (callback) {
     Post.find({}, callback);
@@ -38,4 +43,24 @@ Post.getById = function (id, callback) {
     Post.findById(id, callback);
 };
 
-module.exports = Post;
+// All Category methods
+Category.create = function (newCategory, callback) {
+    newCategory.save(callback);
+};
+
+Category.getAll = function (callback) {
+    Category.find({}, callback);
+};
+
+Category.getByName = function (categoryName, callback) {
+    Category.findOne({
+        name: categoryName
+    }, callback);
+};
+
+var models = {
+    'Post': Post,
+    'Category': Category,
+}
+
+module.exports = models;

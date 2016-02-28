@@ -2,12 +2,15 @@ extends layout
 
 block content
 
+    br
+    br
+
     div.content
         if post
             .post
                 h1 
                     a(href='/posts/show/#{post._id}') #{post.title}
-                p.meta Created in #{post.category} by #{post.author} on #{moment(post.date).format('MM-DD-YYYY')} 
-                p #{post.body}
+                p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
+                p #{post.content}
         else
             p.no-posts Sorry, requested post is no longer available

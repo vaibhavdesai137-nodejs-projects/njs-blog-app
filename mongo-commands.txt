@@ -20,24 +20,32 @@ db.createUser({
 });
 
 // create collection
+db.posts.drop();
+db.categories.drop();
 db.createCollection('posts');
 db.createCollection('categories');
 show collections;
 
 // add records
+db.categories.insert({"name": "Technology"});
+db.categories.insert({"name": "Fashion"});
+db.categories.insert({"name": "Food"});
+db.categories.insert({"name": "Gadgets"});
+db.categories.insert({"name": "Yoga"});
+
 db.posts.insert({
+    "author": "Vaibhav Desai",
     "title": "Post1",
     "category": "Tech",
-    "author": "Vaibhav Desai",
-    "body": "Lorem",
+    "content": "Lorem",
     "date": ISODate()
 });
 
 db.posts.insert({
+    "author": "Vaibhav Desai",
     "title": "Post2",
     "category": "Food",
-    "author": "Vaibhav Desai",
-    "body": "Lorem",
+    "content": "Lorem",
     "date": ISODate()
 });
 
