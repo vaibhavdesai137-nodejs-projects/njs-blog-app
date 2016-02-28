@@ -3,18 +3,20 @@ extends layout
 block content
     
     .well
-        p This is a NodeJS app that demonstrates a blog application
-        p No user login functionality implemented
-        p Anyone can create any articles (freedom of speech?)
+        ul 
+            li NodeJS Blog App
+            li This app allows you to view and add posts
+            li This app allows you to add new categories
+            li No user login available. Anyone can create any posts (freedom of speech?)
     
     div.content
         if posts
             each post in posts
                 .post
                     h1 
-                        a(href='/posts/#{post._id}') #{post.title}
-                    p.meta Created in #{post.category} by #{post.author} on #{moment(post.date).format('MM-DD-YYYY')} 
-                    p #{post.body}
-                    a.btn.btn-info(href='/posts/#{post._id}') Read More
+                        a(href='/posts/show/#{post._id}') #{post.title}
+                    p.meta Created in category '#{post.category}' by '#{post.author}' on '#{moment(post.date).format('MM-DD-YYYY')}'
+                    p #{post.content}
+                    a.btn.btn-info(href='/posts/show/#{post._id}') Read More
         else
             p.no-posts No posts found to display

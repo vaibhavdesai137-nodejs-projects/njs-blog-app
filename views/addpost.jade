@@ -1,0 +1,42 @@
+extends layout
+
+block content
+    h1 Add Post
+    p Please create a new post using the form below
+    br
+    
+    ul.errors
+        if errors
+            each error, i in errors
+                li.alert.alert-danger #{error.msg}
+            
+    form(method='post', action='/posts/add', enctype='multipart/form-data')
+        .row
+            .col-md-3
+                .form-group
+                    label Full Name
+                    input.form-control(type='text', name='postAuthor', value=postAuthor)
+        .row
+            .col-md-3
+                .form-group
+                    label Post Title
+                    input.form-control(type='text', name='postTitle', value=postTitle)
+        .row
+            .col-md-3
+                .form-group
+                    label Post Category
+                    select.form-control(name='postCategory')
+                        option(name='default', value='') Select a category
+                        option(name='Foo', value='Foo') Foo
+                        option(name='Bar', value='Bar') Bar
+        .row
+            .col-md-6
+                .form-group
+                    label Post Content
+                    textarea.form-control(name='postContent', rows='10') #{postContent}
+        .row
+            .col-md-3
+                .form-group
+                    label Post Image
+                    input.form-control(type='file', name='postImage')
+        button.btn.btn-info(type='submit') Save

@@ -12,15 +12,23 @@ mongoose.connect(mongoUri, function (err) {
 });
 
 // our schema
-var userSchema = new mongoose.Schema({
+var schema = new mongoose.Schema({
+    author: String,
     title: String,
     category: String,
-    author: String,
-    body: String,
-    date: Date
+    content: String,
+    date: {
+        type: Date,
+        default: Date.now
+    }
 });
 
-var Post = mongoose.model('posts', userSchema);
+var Post = mongoose.model('posts', schema);
+
+Post.create = function (newPost, callback) {
+    console.log("NEW: " + JSON.stringify(newPost));
+    newPost.save(callback);
+}
 
 Post.getAll = function (callback) {
     Post.find({}, callback);

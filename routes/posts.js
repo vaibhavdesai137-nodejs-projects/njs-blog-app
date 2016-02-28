@@ -14,14 +14,82 @@ router.get('/', function (req, res, next) {
 });
 
 // get a aprticular post
-router.get('/:id', function (req, res, next) {
+router.get('/show/:id', function (req, res, next) {
     var postOid = req.param.id;
     Post.getById(postOid, function (err, post) {
         if (err) throw err;
-        res.render('posts', {
-            posts: post
+        res.render('post', {
+            post: post
         });
     });
+});
+
+// show addpost page
+router.get('/add', function (req, res, next) {
+    res.render('addpost', {
+        title: 'Add Post'
+    });
+});
+
+// save a new post
+router.post('/add', function (req, res, next) {
+    
+    var postAuthor = req.body.postAuthor;
+    var postTitle = req.body.postTitle;
+    var postCategory = req.body.postCategory;
+    var postContent = req.body.postContent;
+    var postImage = req.files.postImage;
+
+    // check if user submitted a post image
+    if (postImage) {
+        console.log("Uploading image...");
+        var postImageOrigName = req.files.postimage.originalname;
+        var postImageName = req.files.postimage.name;
+        var postImageMimeType = req.files.postimage.mimetype;
+        var postImagePath = req.files.postimage.path;
+        var postImageSize = req.files.postimage.size;
+        var postImageExt = req.files.postimage.extension;
+    } else {
+        var postImageName = 'default-image.png';
+    }
+
+    // Validators
+    req.checkBody('postAuthor', 'Full Name field is required').notEmpty();
+    req.checkBody('postTitle', 'Post Title field is required').notEmpty();
+    req.checkBody('postCategory', 'Post Category field is required').notEmpty();
+    req.checkBody('postContent', 'Post Content is required').notEmpty();
+    
+    // Error checking
+    var errors = req.validationErrors();
+    if (errors) {
+        res.render('addpost', {
+            title: 'Add Post',
+            errors: errors,
+            postAuthor: postAuthor,
+            postTitle: postTitle,
+            postCategory: postCategory,
+            postContent: postContent
+        });
+    } else {
+
+        // create new post
+        var newPost = new Post({
+            author: postAuthor,
+            title: postTitle,
+            category: postCategory,
+            content: postContent
+        });
+
+        Post.create(newPost, function (err, post) {
+            if (err) throw err;
+            console.log("New post successfully created");
+        });
+
+        // success msg
+        req.flash('success', 'Post successfully saved');
+        res.location('/');
+        res.redirect('/');
+    }
 });
 
 module.exports = router;
