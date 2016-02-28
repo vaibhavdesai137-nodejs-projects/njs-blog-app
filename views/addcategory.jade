@@ -21,11 +21,11 @@ block content
     hr
     h4 Available Categories
     div.content
-        if categories
+        if categories.length
             table.table.table-striped(style='width:30%')
                 tbody
                     each category in categories
                         tr
                             td= category.name
         else 
-            No categories created yet
+            p No categories created yet
