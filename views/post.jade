@@ -8,8 +8,7 @@ block content
     div.content
         if post
             .post
-                h1 
-                    a(href='/posts/show/#{post._id}') #{post.title}
+                h1 #{post.title}
                 p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
                 p #{post.content}
         else

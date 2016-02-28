@@ -11,6 +11,7 @@ var multer = require('multer');
 var flash = require('connect-flash');
 var expressMessages = require('express-messages');
 var moment = require('moment');
+var db = require('./db');
 
 var index = require('./routes/index');
 var posts = require('./routes/posts');

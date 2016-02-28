@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Category = require('./../models/Models').Category;
+var Category = require('./../models/Category');
 
 // show addcategory page
 router.get('/add', function (req, res, next) {

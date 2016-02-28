@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('./../models/Models').Post;
-var Category = require('./../models/Models').Category;
+var Post = require('./../models/Post');
+var Category = require('./../models/Category');
 
 // get all posts
 router.get('/', function (req, res, next) {
@@ -20,6 +20,7 @@ router.get('/show/:id', function (req, res, next) {
     Post.getById(postOid, function (err, post) {
         if (err) throw err;
         res.render('post', {
+            title: 'Post',
             post: post
         });
     });
