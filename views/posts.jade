@@ -12,8 +12,9 @@ block content
             li This app allows you to add new categories
             li No user login available. Anyone can create any posts (freedom of speech?)
     
+    h1 Available Posts
     div.content
-        if posts
+        if posts.length
             each post in posts
                 .post
                     h1 
