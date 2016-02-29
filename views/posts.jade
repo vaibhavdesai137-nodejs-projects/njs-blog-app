@@ -12,14 +12,15 @@ block content
             li This app allows you to add new categories
             li No user login available. Anyone can create any posts (freedom of speech?)
     
-    h1 Available Posts
     div.content
         if posts.length
             each post in posts
                 .post
                     h1 
                         a(href='/posts/show/#{post._id}') #{post.title}
-                    p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
+                    p.meta Created in category 
+                        a(href='/categories/show/#{post.category}') #{post.category} 
+                        | by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
                     br
                     img.allpostsimg.center(src='/images/uploads/#{post.imageName}')
                     br

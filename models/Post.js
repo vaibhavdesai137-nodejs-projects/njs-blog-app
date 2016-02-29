@@ -9,7 +9,8 @@ var postSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    imageName: String 
+    imageName: String,
+    comments: []
 });
 
 var Post = mongoose.model('posts', postSchema);
@@ -24,6 +25,24 @@ Post.getAll = function (callback) {
 
 Post.getById = function (id, callback) {
     Post.findById(id, callback);
+};
+
+Post.getByCategory = function (category, callback) {
+    Post.find({
+        category: category
+    }, callback);
+};
+
+Post.addComment = function (postOid, comment, callback) {
+
+    Post.update({
+            _id: postOid
+        }, {
+            $push: {
+                comments: comment
+            }
+        },
+        callback);
 };
 
 module.exports = Post;

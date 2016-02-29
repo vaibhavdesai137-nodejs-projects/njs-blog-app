@@ -19,6 +19,11 @@ router.get('/show/:id', function (req, res, next) {
     var postOid = req.params.id;
     Post.getById(postOid, function (err, post) {
         if (err) throw err;
+
+        console.log("POST: " + JSON.stringify(post));
+        console.log("POST: " + JSON.stringify(post.content));
+        console.log("POST: " + JSON.stringify(post.comments));
+
         res.render('post', {
             title: 'Post',
             post: post
@@ -99,6 +104,52 @@ router.post('/add', function (req, res, next) {
         req.flash('success', 'Post successfully saved');
         res.location('/');
         res.redirect('/');
+    }
+});
+
+// save a new comment
+router.post('/:id/comments/add', function (req, res, next) {
+
+    var postOid = req.params.id;
+    var commentAuthor = req.body.commentAuthor;
+    var commentEmail = req.body.commentEmail;
+    var commentContent = req.body.commentContent;
+
+    // Validators
+    req.checkBody('commentAuthor', 'Full Name field is required').notEmpty();
+    req.checkBody('commentEmail', 'Email Address field is required').notEmpty();
+    req.checkBody('commentContent', 'Content field is required').notEmpty();
+
+    // Error checking
+    var errors = req.validationErrors();
+    if (errors) {
+        Post.getById(postOid, function (err, post) {
+            if (err) throw err;
+            res.render('post', {
+                title: 'Post',
+                post: post,
+                errors: errors,
+                commentAuthor: commentAuthor,
+                commentEmail: commentEmail,
+                commentContent: commentContent
+            });
+        });
+    } else {
+
+        var comment = {
+            author: commentAuthor,
+            email: commentEmail,
+            content: commentContent,
+            date: new Date()
+        };
+
+        Post.addComment(postOid, comment, function (err, post) {
+            if (err) throw err;
+            else {
+                res.location('/posts/show/' + postOid);
+                res.redirect('/posts/show/' + postOid);
+            }
+        });
     }
 });
 

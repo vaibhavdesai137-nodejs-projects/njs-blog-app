@@ -72,3 +72,19 @@ ul.error li {
     background-color: #c9302c;
     border-color: #761c19;
 }
+
+.comment {
+    background: #DDD;
+    border: 1px solid #666;   
+    margin-bottom: 10px;
+    padding: 10px 0 10px 10px;
+    border-radius: 20px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-content {
+    
+}

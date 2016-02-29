@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Category = require('./../models/Category');
+var Post = require('./../models/Post');
 
 // show addcategory page
 router.get('/add', function (req, res, next) {
@@ -16,7 +17,7 @@ router.get('/add', function (req, res, next) {
     });
 });
 
-// save a new post
+// save a new cateory
 router.post('/add', function (req, res, next) {
 
     var categoryName = req.body.categoryName;
@@ -61,6 +62,22 @@ router.post('/add', function (req, res, next) {
             });
         });
     }
+});
+
+// show posts by category
+router.get('/show/:category', function (req, res, next) {
+
+    var category = req.params.category;
+
+    Post.getByCategory(category, function (err, posts) {
+
+        if (err) throw err;
+
+        res.render('posts', {
+            title: 'Posts',
+            posts: posts
+        });
+    });
 });
 
 module.exports = router;

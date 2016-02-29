@@ -9,10 +9,45 @@ block content
         if post
             .post
                 h1 #{post.title}
-                p.meta Created in category '#{post.category}' by '#{post.author}' on #{moment(post.date).format('MM-DD-YYYY')}
+                p.meta Created in category 
+                    a(href='/categories/show/#{post.category}') #{post.category} 
+                    | by #{post.author} on #{moment(post.date).format('MM-DD-YYYY')}
                 br
                 img.singlepostimg.center(src='/images/uploads/#{post.imageName}')
                 br
                 != post.content
+                
+            
+            h3 Comments
+            each comment in post.comments
+                .comment
+                    p.comment-author #{comment.author}
+                    p.comment-content #{comment.content}
+            hr
+            
+            h3 Add New Comment
+            ul.errors
+                if errors
+                    each error, i in errors
+                        li.alert.alert-danger #{error.msg}
+            
+            form(method='post', action='/posts/#{post._id}/comments/add', enctype='multipart/form-data')
+                .row
+                    .col-md-3
+                        .form-group
+                            label Full Name
+                            input.form-control(type='text', name='commentAuthor', value=commentAuthor)
+                .row
+                    .col-md-3
+                        .form-group
+                            label Email Address
+                            input.form-control(type='email', name='commentEmail', value=commentEmail)
+                .row
+                    .col-md-6
+                        .form-group
+                            label Content
+                            textarea.form-control(name='commentContent', id='commentContent', rows='5') #{commentContent}
+                button.btn.btn-info(type='submit') Add
+
         else
             p.no-posts Sorry, requested post is no longer available
